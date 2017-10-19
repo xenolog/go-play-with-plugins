@@ -44,7 +44,7 @@ func main() {
 		log.Fail("%s", err)
 		os.Exit(1)
 	}
-	storage := plgFabric.(func() interface{})().(sPlugin.StoragePlugin)
+	storage := plgFabric.(func() sPlugin.StoragePlugin)()
 	storage.Init(log, Meta)
 
 	log.Info("PL: %s", storage.Ping())

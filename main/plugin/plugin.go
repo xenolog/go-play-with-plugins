@@ -5,9 +5,9 @@ import (
 )
 
 type BaseStoragePlugin struct {
-	log      *logger.Logger
-	init     bool
-	metadata string
+	Log         *logger.Logger
+	AlreadyInit bool
+	Metadata    string
 }
 
 // func (p *BaseStoragePlugin) SetLogger(lg *logger.Logger) {

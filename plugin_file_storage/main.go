@@ -1,40 +1,42 @@
-package plugin
+package main
 
 import (
-	"github.com/xenolog/go-play-with-plugins/main/plugin"
+	"fmt"
+	plBase "github.com/xenolog/go-play-with-plugins/main/plugin"
 	logger "gopkg.in/xenolog/go-tiny-logger.v1"
 )
 
 type StoragePluginType struct {
-	BaseStoragePlugin
+	plBase.BaseStoragePlugin
 }
 
 var version string // this string setting up at compile time
 
-func (p *BaseStoragePlugin) SetLogger(lg *logger.Logger) {
+func (p *StoragePluginType) SetLogger(lg *logger.Logger) {
 	p.Log = lg
 }
 
-func (p *BaseStoragePlugin) Set(key, val string) error {
+func (p *StoragePluginType) Set(key, val string) error {
 	return nil
 }
 
-func (p *BaseStoragePlugin) Get(key string) (string, error) {
+func (p *StoragePluginType) Get(key string) (string, error) {
 	return "", nil
 }
 
-func (p *BaseStoragePlugin) Ping() {
-	return "OK, Plugin for File storage, version: %s", version
+func (p *StoragePluginType) Ping() string {
+	return fmt.Sprintf("OK, Plugin for File storage, version: %s", version)
 }
 
-func (p *BaseStoragePlugin) Init(log *logger.Logger, metadata string) error {
-	if p.alreadyInit == false {
-		p.log = log
-		p.metadata = metadata
+func (p *StoragePluginType) Init(log *logger.Logger, metadata string) error {
+	if p.AlreadyInit == false {
+		p.Log = log
+		p.Metadata = metadata
+		p.AlreadyInit = true
 	}
 	return nil
 }
 
-func New() StoragePlugin {
+func New() plBase.StoragePlugin {
 	return &StoragePluginType{}
 }
